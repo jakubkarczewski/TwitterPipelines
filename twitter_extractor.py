@@ -6,7 +6,8 @@ import tweepy
 
 class TwitterExtractor:
     """Class for handling extraction of tweets."""
-    def __init__(self, api_keys_path='.api_keys.pkl', access_tokens='.access_tokens.pkl'):
+    def __init__(self, api_keys_path='.api_keys.pkl',
+                 access_tokens='.access_tokens.pkl'):
         """
         :param api_keys_path: path to pickled dict with api keys
         :param access_tokens: path to pickled dict with api tokens
@@ -14,7 +15,8 @@ class TwitterExtractor:
         self._access_tokens = access_tokens
         self._api_keys_path = api_keys_path
 
-        self.keys_to_keep = ('created_at', 'id', 'text', 'favorited', 'retweeted', 'lang')
+        self.keys_to_keep = ('created_at', 'id', 'text', 'favorited',
+                             'retweeted', 'lang')
 
     def get_api_handle(self):
         """Loads API keys and tokens and then returns api handle object."""
@@ -44,7 +46,8 @@ class TwitterExtractor:
         :param tweets: list of tweets as SearchResult
         :return: Pandas dataframe with tweets
         """
-        cleaned_tweets = {str(i): self._filter_tweet(tweet) for i, tweet in enumerate(tweets)}
+        cleaned_tweets = {str(i): self._filter_tweet(tweet)
+                          for i, tweet in enumerate(tweets)}
         df = pd.DataFrame.from_dict(cleaned_tweets, orient='index')
         df = df.sort_index()
         return df
